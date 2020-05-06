@@ -10,18 +10,19 @@
         <el-form ref="form" :model="form" label-width="80px">
           <div class="inputWrapper">
             <p>用户名</p>
-            <el-input v-model="form.name"></el-input>
+            <el-input v-model="form.username"></el-input>
           </div>
           <div class="inputWrapper">
             <p>密码</p>
-            <el-input v-model="form.name"></el-input>
+            <el-input type="password" v-model="form.password"></el-input>
           </div>
           <div class="inputWrapper">
             <p>验证码</p>
-            <el-input v-model="form.name" style="width:64%"></el-input>
-            <img  src="http://223.4.64.26:8888/zjjkz/common/getCodeImage" alt="" class="checkCodeImg">
+            <el-input v-model="form.checkCode" style="width:64%"></el-input>
+            <!--使用模板字符串：只需在属性前面加：，然后将··放在“”中即可-->
+            <img @click="reloadCheckCode" :src="`http://223.4.64.26:10000/zjjkz/common/getCodeImage?para=${para}`" alt="" class="checkCodeImg">
           </div>
-          <el-button class="submitBtn" type="primary" @click="onSubmit">立即创建</el-button>
+          <el-button class="submitBtn" type="primary" @click="onSubmit">登录</el-button>
         </el-form>
       </div>
     </div>
@@ -42,7 +43,9 @@
     data() {
       return {
         form: {
-          name: '',
+          username: '',
+          passwordL:'',
+          checkCode:''
         },
         para:0,
         checkCodeUrl:`/zjjkz/common/getCodeImage`
@@ -50,9 +53,16 @@
     },
     methods: {
       onSubmit() {
-        console.log('submit!');
+        let formData = new FormData();
+        formData.append('username', this.form.username);
+        formData.append('password', this.form.password);
+        formData.append('checkCode', this.form.checkCode);
+        this.$store.dispatch('login/login',formData)
+      },
+      reloadCheckCode(){
+        this.para= this.para+1
       }
-    }
+    },
   }
 </script>
 
