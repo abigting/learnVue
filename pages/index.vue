@@ -2,7 +2,7 @@
   <div class="login">
     <div class="header">
       <div class="imgBox">
-        <img src="../assets/imgs/logoBlack.svg" alt="">
+        <img style="width: 377px;height:64px"  src="../assets/imgs/logoBlack.svg" alt="">
       </div>
     </div>
     <div class="content">
@@ -43,8 +43,8 @@
     data() {
       return {
         form: {
-          username: '',
-          passwordL:'',
+          username: 'admin',
+          password:'jkz12345',
           checkCode:''
         },
         para:0,
@@ -78,7 +78,6 @@
   .imgBox {
     width: 1200px;
     margin: 0 auto;
-    padding: 8px 0;
   }
 
   .content {
