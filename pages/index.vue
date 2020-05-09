@@ -20,7 +20,7 @@
             <p>验证码</p>
             <el-input v-model="form.checkCode" style="width:64%"></el-input>
             <!--使用模板字符串：只需在属性前面加：，然后将··放在“”中即可-->
-            <img @click="reloadCheckCode" :src="`http://223.4.64.26:10000/zjjkz/common/getCodeImage?para=${para}`" alt="" class="checkCodeImg">
+            <img @click="reloadCheckCode" :src="`/zjjkz/common/getCodeImage?para=${para}`" alt="" class="checkCodeImg">
           </div>
           <el-button class="submitBtn" type="primary" @click="onSubmit">登录</el-button>
         </el-form>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Message } from 'element-ui';
+import * as common from '../utils/common';
 import request from '../utils/request';
-
 export const state = () => ({
   list: [],
   userInfo:{}
@@ -26,19 +26,30 @@ export const mutations = {
 export const actions = {
   //async异步
   async login({commit}, params) {
-    const result = await axios.post('http://223.4.64.26:10000/zjjkz/toLogin', params);
+    const res = await request.post('/zjjkz/toLogin', params);
     // const res = request({
     //   method: 'get',
     //   url: '/zjjkz/toLogin',
     //   params
     // });
-    if(result){
-      const {code, message} = result.data;
-      if(code!=='0'){
-        this.$axios.setToken('2y7NQqhECNqlf24yEThhRlJI7kQJGmL+sPa+TD2nE8u14SN4Qh1N5QsOHVRsEd3H')
-        this.$router.push('/info/employee')
-        // Message.warning(message);
-      }
+    // console.log(result, 'result')
+    if(res){
+      const { data } = res;
+      const { authority, ...rest } = data;
+      localStorage.setItem('authority', authority);
+      let lastAreaCode = rest.areaCode ? rest.areaCode.split(',') : [];
+      if (lastAreaCode.length > 0) {
+        lastAreaCode = lastAreaCode[lastAreaCode.length - 1];
+      } else lastAreaCode = '';
+      rest.lastAreaCode = lastAreaCode;
+      common.setCookie('userInfo', rest);
+      // this.$axios.setToken('2y7NQqhECNqlf24yEThhRlJI7kQJGmL+sPa+TD2nE8u14SN4Qh1N5QsOHVRsEd3H')
+      // this.$router.push('/info/employee')
+      setTimeout(() => {
+        // 为了清空state中的缓存数据，比如行政区划的初始化
+        window.location.href = '/info/employee';
+      }, 300);
+      // Message.warning(message);
     }
     // commit('updateState', result.data);
   },

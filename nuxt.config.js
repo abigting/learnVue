@@ -44,12 +44,19 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/proxy'
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    proxy: true
+  },
+  proxy: {
+    '/zjjkz': {
+      target: 'http://223.4.64.26:10000',
+    }
   },
   /*
   ** Build configuration

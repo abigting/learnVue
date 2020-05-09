@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="sider">
     <div class="nav" @click="handleChangeCollapse">
       功能导航
     </div>
@@ -7,11 +7,13 @@
              :collapse="isCollapse">
       <el-submenu v-for="(router,i) in routers" :index="router.path">
         <template slot="title">
-          <i class="iconfont iconjiankangtijian"></i>
+          <i :class="[`iconfont`, router.icon]"></i>
           <span slot="title">{{router.name}}</span>
         </template>
         <el-menu-item-group v-if="router.children&&router.children.length>0">
-          <el-menu-item v-for="(submenu,i) in router.children" :index="submenu.path" @click="navigate(submenu)">{{submenu.name}}</el-menu-item>
+          <el-menu-item v-for="(submenu,i) in router.children" :index="submenu.path" @click="navigate(submenu)">
+            {{submenu.name}}
+          </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
     </el-menu>
@@ -158,7 +160,7 @@
       handleChangeCollapse() {
         this.isCollapse = !this.isCollapse
       },
-      navigate(submenu){
+      navigate(submenu) {
         this.$router.push(submenu.path)
       }
     }
@@ -166,13 +168,23 @@
 </script>
 
 <style scoped>
+  .sider {
+    border-right: solid 1px #e6e6e6;
+    height: calc(100vh - 64px);
+  }
+
   .nav {
     padding: 12px 16px 12px 24px;
     border-bottom: 1px solid #e4e9f4;
     cursor: pointer;
   }
+
   .icontishi:before {
     content: "\e634";
+  }
+
+  .el-menu {
+    border-right: 0;
   }
 
   /*@font-face {font-family: "iconfont";*/

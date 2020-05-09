@@ -4,7 +4,7 @@
   </div>
   <div v-else>
     <el-container>
-      <el-header>
+      <el-header height="64px">
         <Header/>
       </el-header>
       <el-container>
