@@ -477,3 +477,27 @@ export function dealPrintData(data) {
   return data;
 }
 
+
+/**
+ * 页面布局
+ */
+export function getGrid(span = 12) {
+  if (span === 24) {
+    return {
+      xl: 24, lg: 24, md: 24, sm: 24,
+    };
+  } else {
+    return {
+      xl: span, lg: 12, md: 24, sm: 24,
+    };
+  }
+}
+
+export function isvalidUsername(str) {
+  const valid_map = ['admin', 'editor']
+  return valid_map.indexOf(str.trim()) >= 0
+}
+
+export function isExternal(path) {
+  return /^(https?:|mailto:|tel:)/.test(path)
+}

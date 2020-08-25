@@ -7,7 +7,7 @@
     </div>
     <div class="content">
       <div class="formBox">
-        <el-form ref="form" :model="form" label-width="80px">
+        <el-form ref="form" :model="form" :rules="loginRules" label-width="80px">
           <div class="inputWrapper">
             <p>用户名</p>
             <el-input v-model="form.username"></el-input>
@@ -20,7 +20,9 @@
             <p>验证码</p>
             <el-input v-model="form.checkCode" style="width:64%"></el-input>
             <!--使用模板字符串：只需在属性前面加：，然后将··放在“”中即可-->
-            <img @click="reloadCheckCode" :src="`/zjjkz/common/getCodeImage?para=${para}`" alt="" class="checkCodeImg">
+<!--            <img @click="reloadCheckCode" :src="`/zjjkz/common/getCodeImage?para=${para}`" alt="" class="checkCodeImg">-->
+            <img @click="reloadCheckCode" :src="`/zjjcpj/common/getCodeImage?para=${para}`" alt="" class="checkCodeImg">
+<!--            <img @click="reloadCheckCode" :src="`/zjjkz/common/getCodeImage?para=${para}`" alt="" class="checkCodeImg">-->
           </div>
           <el-button class="submitBtn" type="primary" @click="onSubmit">登录</el-button>
         </el-form>
@@ -41,16 +43,46 @@
   import Logo from '~/components/Logo.vue'
   export default {
     data() {
+      const validateUsername = (rule, value, callback) => {
+        if (!isvalidUsername(value)) {
+          callback(new Error("请输入正确的用户名"));
+        } else {
+          callback();
+        }
+      };
+      const validatePass = (rule, value, callback) => {
+        if (value.length < 5) {
+          callback(new Error("密码不能小于5位"));
+        } else {
+          callback();
+        }
+      };
+
       return {
         form: {
           username: 'admin',
-          password:'jkz12345',
+          password:'jc123456',
           checkCode:''
+        },
+        loginRules: {
+          username: [
+            { required: true, trigger: "blur", validator: validateUsername }
+          ],
+          password: [{ required: true, trigger: "blur", validator: validatePass }]
         },
         para:0,
         checkCodeUrl:`/zjjkz/common/getCodeImage`
       }
     },
+    created() {
+      // let _this = this;
+      // window.onkeydown = function(e) {
+      //   let key = window.event.keyCode;
+      //   if (key == 13) {
+      //     _this.onSubmit();
+      //   }
+      // }
+      },
     methods: {
       onSubmit() {
         let formData = new FormData();

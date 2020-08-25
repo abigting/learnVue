@@ -7,23 +7,26 @@ let request = axios.create({
   // timeout: 5000,     //超时时间，5000毫秒,
 });
 
+//设置请求头中的token
 request.defaults.headers.common["token"] = getUserInfo().token;
+
 request.interceptors.request.use(function (config) {
-  // config.headers.token = TOKEN;
-  // config.headers.get.token = TOKEN;
-  // console.log(config.headers, 'config.headers');
   return config;
 }, function (err) {
   return Promise.reject(err);
 });
+
 request.interceptors.response.use(async function (res) {
-  const result = await res;
-  const {data} = result;
+  const {data} = await res;
   const {code, message} = data;
+
+  //code==='0'代表请求成功
   if (code === '0') {
-    return data;
+    return data.data||{};
   } else {
     Message.warning(message);
+
+    //code === '6666'时token失效，退回到登录页
     if (code === '6666') {
       window.location.href = '/';
     }
@@ -31,4 +34,5 @@ request.interceptors.response.use(async function (res) {
 }, function (err) {
   return err;
 });
+
 export default request;

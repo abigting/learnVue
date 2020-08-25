@@ -12,7 +12,12 @@
           <Sider/>
         </el-aside>
         <el-main>
-          <nuxt/>
+          <div class="bread-wrapper">
+            <Bread/>
+          </div>
+          <div class="content-wrapper">
+            <nuxt/>
+          </div>
         </el-main>
       </el-container>
     </el-container>
@@ -21,6 +26,7 @@
 <script>
   import Header from './header'
   import Sider from './sider'
+  import Bread from '../components/bread'
 
   export default {
     name: "index",
@@ -29,7 +35,8 @@
     },
     components: {
       Header,
-      Sider
+      Sider,
+      Bread
     },
     mounted() {
       // this.path = $nuxt.$route.path;
@@ -57,5 +64,13 @@
   }
   .el-header {
     padding: 0;
+  }
+  .bread-wrapper {
+    border-bottom: 1px solid #e4e9f4;
+    margin: 0 -20px;
+    padding: 0 20px;
+  }
+  .content-wrapper{
+    padding-top: 8px;
   }
 </style>

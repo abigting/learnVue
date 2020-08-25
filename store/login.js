@@ -8,11 +8,7 @@ export const state = () => ({
 })
 
 export const mutations = {
-  // login (state, { todo }) {
-  //   console.log(todo)
-  //   // state.list.splice(state.list.indexOf(todo), 1)
-  // },
-  updateState(state, payload) {
+  update(state, payload) {
     state.list = payload
   },
   remove(state, {todo}) {
@@ -26,7 +22,8 @@ export const mutations = {
 export const actions = {
   //async异步
   async login({commit}, params) {
-    const res = await request.post('/zjjkz/toLogin', params);
+    // const res = await request.post('/zjjkz/toLogin', params);
+    const res = await request.post('/zjjcpj/toLogin', params);
     // const res = request({
     //   method: 'get',
     //   url: '/zjjkz/toLogin',
@@ -34,8 +31,7 @@ export const actions = {
     // });
     // console.log(result, 'result')
     if(res){
-      const { data } = res;
-      const { authority, ...rest } = data;
+      const { authority, ...rest } = res;
       localStorage.setItem('authority', authority);
       let lastAreaCode = rest.areaCode ? rest.areaCode.split(',') : [];
       if (lastAreaCode.length > 0) {
@@ -47,10 +43,10 @@ export const actions = {
       // this.$router.push('/info/employee')
       setTimeout(() => {
         // 为了清空state中的缓存数据，比如行政区划的初始化
-        window.location.href = '/info/employee';
+        window.location.href = '/baseInfo/entering';
       }, 300);
       // Message.warning(message);
     }
-    // commit('updateState', result.data);
+    // commit('update', result.data);
   },
 }

@@ -54,9 +54,12 @@ export default {
     proxy: true
   },
   proxy: {
-    '/zjjkz': {
-      target: 'http://223.4.64.26:10000',
+    '/zjjcpj': {
+      target: 'http://223.4.64.210:9999',
     }
+    // '/zjjkz': {
+    //   target: 'http://223.4.64.26:10000',
+    // }
   },
   /*
   ** Build configuration

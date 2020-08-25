@@ -40,8 +40,8 @@
        prop="operation"
        label="操作">
        <template slot-scope="scope">
-         <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-         <el-button type="text" size="small">编辑</el-button>
+         <el-button @click="showDetal(scope.row)" type="text" size="small">查看</el-button>
+         <el-button @click="showDetal(scope.row)" type="text" size="small">编辑</el-button>
        </template>
      </el-table-column>
    </el-table>
@@ -63,6 +63,7 @@
 
       }
     },
+    //计算属性
     computed: {
       tableData () {
         return this.$store.state.infoEmployee.list
@@ -75,12 +76,16 @@
       }
     },
     methods: {
-      handleClick(row) {
-        console.log(row);
-      },
       handleTableChange(page){
         this.$store.commit('infoEmployee/changePagination',{page});
         this.$store.dispatch('infoEmployee/getList')
+      },
+      showDetal(action){
+        this.$store.commit('infoEmployee/update',{
+          visible: true,
+          action: action,
+          currentItem:{}
+        });
       }
     },
     created: function () {

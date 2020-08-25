@@ -2,7 +2,7 @@
   <div class="header">
     <el-row>
       <el-col :span="12" class="title">
-        <img style="width: 377px; height:64px" src="../assets/imgs/logoWhite.svg" alt="">
+        <img style=" width: 377px; height:64px" src="../assets/imgs/logoWhite.svg" alt="">
       </el-col>
       <el-col :span="12" class="operation">
 
